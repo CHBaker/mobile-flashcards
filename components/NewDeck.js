@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
     View, TouchableOpacity, Text, Platform,
-    StyleSheet, TextInput
+    StyleSheet, TextInput, KeyboardAvoidingView,
+    Keyboard
 } from 'react-native'
 import { connect } from 'react-redux'
 import { BackBtn } from './BackBtn'
@@ -14,6 +15,7 @@ class NewDeck extends Component {
 
     handleSubmit () {
         console.log(this.state)
+        Keyboard.dismiss()
 
         this.setState({ title: null })
     }
@@ -24,7 +26,7 @@ class NewDeck extends Component {
 
     render () {
         return (
-            <View style={{ flex: 1 }}>
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
                 <BackBtn onPress={ this.goBack() }/>
                 <View style={ styles.container }>
                     <Text style={ styles.header }>
@@ -46,7 +48,7 @@ class NewDeck extends Component {
                         <Text style={ styles.submitText }>Submit</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -94,7 +96,5 @@ const styles = StyleSheet.create({
         fontSize: 28,
     }
 })
-
-
 
 export default connect()(NewDeck)
