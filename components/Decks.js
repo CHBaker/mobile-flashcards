@@ -14,7 +14,7 @@ class Decks extends Component {
 
     render () {
 
-        const { decks } = this.props
+        const { decks, navigation } = this.props
 
         return (
             <View style={ styles.container }>
@@ -26,11 +26,15 @@ class Decks extends Component {
                     </Text>
                 }
                 {
-                    decks.map((deck, index) => (
-                        <View style={ styles.deck } key={ index }>
+                    decks.map((deck) => (
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('DeckDetail', { id: deck.id }) }
+                            style={ styles.deck }
+                            key={ deck.id }
+                        >
                             <Text style={{ fontSize: 24 }}>{ deck.title }</Text>
                             <Text style={{ fontSize: 20 }}>{ deck.questions.length }</Text>
-                        </View>
+                        </TouchableOpacity>
                     ))
                 }
             </View>

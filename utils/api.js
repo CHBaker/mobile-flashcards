@@ -5,6 +5,7 @@ const DECK_KEY = 'DeckStorageKey';
 INIT_DECKS = {
     React: {
         title: 'React',
+        id: '515050',
         questions: [
           {
             question: 'What is React?',
@@ -16,6 +17,10 @@ INIT_DECKS = {
           }
         ]
     }
+}
+
+const newUID = () => {
+    return Math.floor(Math.random()*8999999999999999+1000000000000000).toString();
 }
 
 export function initDecks() {
@@ -35,7 +40,7 @@ export function getDecks() {
 }
 
 export function addDeck(title) {
-    const deck = { 'title': title, questions: [] }
+    const deck = { 'title': title, 'id': newUID(), questions: [] }
     return AsyncStorage.mergeItem(DECK_KEY, JSON.stringify(
         {
             [title]: deck

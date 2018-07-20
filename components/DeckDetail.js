@@ -5,7 +5,13 @@ import { getDecks } from '../actions';
 import * as Api from '../utils/api';
 
 class DeckDetail extends Component {
-
+    render() {
+        return (
+            <View>
+                <Text>DeckDetail</Text>
+            </View>
+        )
+    }
 }
 
 export default DeckDetail
