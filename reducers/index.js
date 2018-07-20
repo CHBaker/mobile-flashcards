@@ -1,6 +1,6 @@
-import { GET_DECKS, ADD_DECK } from "../actions";
+import { GET_DECKS, ADD_DECK, GET_DECK } from "../actions";
 
-function appState(state = { decks: [] }, action) {
+function appState(state = { decks: [], currentDeck: null }, action) {
     switch (action.type) {
         case GET_DECKS:
             const decks = []
@@ -15,6 +15,12 @@ function appState(state = { decks: [] }, action) {
             return {
                 ...state,
                 decks: [ ...state.decks, action.deck]
+            }
+        case GET_DECK:
+            const deck = state.decks.find(deck => deck.id === action.id)
+            return {
+                ...state,
+                currentDeck: { ...deck }
             }
         default:
             return state

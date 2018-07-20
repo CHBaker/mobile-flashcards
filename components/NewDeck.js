@@ -12,15 +12,15 @@ import { addDeck } from '../actions'
 class NewDeck extends Component {
 
     state = {
-        title: null
+        title: ''
     }
 
     handleSubmit () {
         console.log(this.props)
         Keyboard.dismiss()
+        this.setState({ title: '' })
         this.props.addDeck(this.state.title)
         this.props.navigation.navigate('Decks')
-        this.setState({ title: null })
     }
 
     render () {

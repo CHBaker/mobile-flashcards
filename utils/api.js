@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 const DECK_KEY = 'DeckStorageKey';
 
 INIT_DECKS = {
-    React: {
+    'React': {
         title: 'React',
         id: '515050',
         questions: [
@@ -19,10 +19,6 @@ INIT_DECKS = {
     }
 }
 
-const newUID = () => {
-    return Math.floor(Math.random()*8999999999999999+1000000000000000).toString();
-}
-
 export function initDecks() {
     return AsyncStorage.setItem(DECK_KEY, JSON.stringify(INIT_DECKS))
         .catch(error => console.log('error'));
@@ -34,20 +30,19 @@ export function getDecks() {
             if (result) {
                 return JSON.parse(result)
             }
-            return []
+            return null
         })
         .catch(error => console.log(error))
 }
 
-export function addDeck(title) {
-    const deck = { 'title': title, 'id': newUID(), questions: [] }
+export function addDeck(deck) {
     return AsyncStorage.mergeItem(DECK_KEY, JSON.stringify(
         {
-            [title]: deck
+            [deck.title]: deck
         }
     ))
-    .then(() => deck)
-    .catch(error => console.log(error))
+        .then(() => deck)
+        .catch(error => console.log(error))
 }
 
 // React: {
