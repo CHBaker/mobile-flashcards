@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
-import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 import { composeWithDevTools } from 'remote-redux-devtools';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import reducer from './reducers';
 import NewDeck from './components/NewDeck';
 import Decks from './components/Decks';
+import DeckDetail from './components/DeckDetail';
 
 
 const store = createStore(
@@ -16,26 +17,6 @@ const store = createStore(
     applyMiddleware(thunk)
   )
 )
-
-export default class App extends React.Component {
-
-  render () {
-    return (
-      <Provider store={store}>
-        <View style={{flex: 1}}>
-          <View
-            style={{ height: Constants.statusBarHeight, backgroundColor: 'red' }}
-          >
-            <StatusBar translucent />
-          </View>
-          {
-            Platform.OS === 'ios' ? <TabNav/> : <MatTabNav/>
-          }
-        </View>
-      </Provider>
-    );
-  }
-}
 
 const TabNav = createBottomTabNavigator({
   Decks: {
@@ -104,3 +85,36 @@ const MatTabNav = createMaterialTopTabNavigator({
     }
   }
 })
+
+const MainNavigator = createStackNavigator({
+  Decks: {
+    screen: Platform.OS === 'ios' ? TabNav : MatTabNav,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  DeckDetail: {
+    screen: DeckDetail,
+    navigationOptions: {
+      header: null,
+    }
+  }
+})
+
+export default class App extends React.Component {
+
+  render () {
+    return (
+      <Provider store={store}>
+        <View style={{flex: 1}}>
+          <View
+            style={{ height: Constants.statusBarHeight, backgroundColor: 'red' }}
+          >
+            <StatusBar translucent />
+          </View>
+          <MainNavigator />
+        </View>
+      </Provider>
+    );
+  }
+}

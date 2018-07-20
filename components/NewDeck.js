@@ -19,17 +19,16 @@ class NewDeck extends Component {
         console.log(this.props)
         Keyboard.dismiss()
         this.props.addDeck(this.state.title)
+        this.props.navigation.navigate('Decks')
         this.setState({ title: null })
     }
 
-    goBack() {
-        
-    }
-
     render () {
+        const { navigation } = this.props
+
         return (
             <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
-                <BackBtn onPress={ this.goBack() }/>
+                <BackBtn onPress={() => navigation.navigate('Decks')}/>
                 <View style={ styles.container }>
                     <Text style={ styles.header }>
                         What is the name

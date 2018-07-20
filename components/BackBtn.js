@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     backHeader: {
         alignSelf: 'stretch',
         paddingLeft: 10,
-        height: 40,
-        backgroundColor: 'red',
+        paddingTop: 5,
+        height: 45,
+        backgroundColor: 'black',
     }
 })
