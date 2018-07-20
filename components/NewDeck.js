@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { BackBtn } from './BackBtn'
+import { SubmitBtn } from './SubmitBtn'
 import { addDeck } from '../actions'
 
 class NewDeck extends Component {
@@ -42,12 +43,7 @@ class NewDeck extends Component {
                             onChangeText={(title) => this.setState({title})}
                             value={this.state.title}
                         />
-                    <TouchableOpacity
-                        style={ styles.submit }
-                        onPress={ this.handleSubmit.bind(this) }
-                    >
-                        <Text style={ styles.submitText }>Submit</Text>
-                    </TouchableOpacity>
+                    <SubmitBtn onPress={ this.handleSubmit.bind(this) } />
                 </View>
             </KeyboardAvoidingView>
         )
@@ -81,21 +77,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingTop: 8
     },
-    submit: {
-        padding: 5,
-        height: 53,
-        backgroundColor: 'red',
-        alignSelf: 'stretch',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 60,
-        marginLeft: 60,
-        borderRadius: 7
-    },
-    submitText: {
-        color: 'white',
-        fontSize: 28,
-    }
 })
 
 const mapDispatchToProps = dispatch => ({
