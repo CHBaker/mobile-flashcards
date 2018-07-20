@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { BackBtn } from './BackBtn'
+import { addDeck } from '../actions'
 
 class NewDeck extends Component {
 
@@ -14,14 +15,14 @@ class NewDeck extends Component {
     }
 
     handleSubmit () {
-        console.log(this.state)
+        console.log(this.props)
         Keyboard.dismiss()
-
+        this.props.addDeck(this.state.title)
         this.setState({ title: null })
     }
 
     goBack() {
-        console.log('back')
+        
     }
 
     render () {
@@ -97,4 +98,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect()(NewDeck)
+const mapDispatchToProps = dispatch => ({
+    addDeck: (title) => dispatch(addDeck(title))
+});
+
+export default connect(null, mapDispatchToProps)(NewDeck)

@@ -36,12 +36,13 @@ export function getDecks() {
 
 export function addDeck(title) {
     const deck = { 'title': title, questions: [] }
-    AsyncStorage.mergeItem(DECK_KEY, JSON.stringify(
+    return AsyncStorage.mergeItem(DECK_KEY, JSON.stringify(
         {
             [title]: deck
         }
     ))
-    .catch(error => console.log(errer))
+    .then(() => deck)
+    .catch(error => console.log(error))
 }
 
 // React: {

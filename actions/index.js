@@ -12,8 +12,8 @@ export const getDecks = () => dispatch => {
     ).catch(error => console.log(error))
 }
 
-export const addDeck = () => dispatch => {
-    Api.addDack().then(deck =>
+export const addDeck = (title) => dispatch => {
+    Api.addDeck(title).then(deck => 
         dispatch({
             type: ADD_DECK,
             deck

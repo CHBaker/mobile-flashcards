@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
+import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
+import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 import { composeWithDevTools } from 'remote-redux-devtools';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -28,7 +28,9 @@ export default class App extends React.Component {
           >
             <StatusBar translucent />
           </View>
-          <TabNav/>
+          {
+            Platform.OS === 'ios' ? <TabNav/> : <MatTabNav/>
+          }
         </View>
       </Provider>
     );
@@ -36,6 +38,40 @@ export default class App extends React.Component {
 }
 
 const TabNav = createBottomTabNavigator({
+  Decks: {
+    screen: Decks,
+    navigationOptions: {
+      tabBarLabel: 'Decks'
+    }
+  },
+  NewDeck: {
+    screen: NewDeck,
+    navigationOptions: {
+      tabBarLabel: 'New Deck'
+    }
+  }
+}, {
+  tabBarOptions: {
+    activeBackgroundColor: 'rgba(0, 0, 0, 0.14)',
+    activeTintColor: 'red',
+    inactiveTintColor: 'black',
+    tintColor: 'black',
+    swipeEnabled: true,
+    style: {
+      height: 56,
+      backgroundColor: 'white',
+      shadowColor: 'rgba(0, 0, 0, 0.24)',
+      shadowOffset: {
+        width: 0,
+        height: 3
+      },
+      shadowRadius: 6,
+      shadowOpacity: 1
+    }
+  }
+})
+
+const MatTabNav = createMaterialTopTabNavigator({
   Decks: {
     screen: Decks,
     navigationOptions: {
