@@ -27,12 +27,12 @@ class DeckDetail extends Component {
                         deck &&
                         <View style={ styles.contentContainer }>
                             <View style={ styles.deck }>
-                                <Text style={{ fontSize: 35 }}>{ deck.title }</Text>
+                                <Text style={{ fontSize: 35, textAlign: 'center' }}>{ deck.title }</Text>
                                 <Text style={{ fontSize: 30 }}>{ deck.questions.length }</Text>
                             </View>
                             <View style={ styles.btnContainer }>
                                 <TouchableOpacity
-                                    onPress={() => navigation.navigate('Quiz')}
+                                    onPress={() => navigation.navigate('Quiz', { deck: deck })}
                                     style={[ styles.quizBtn, styles.btn ]}
                                 >
                                     <Text style={ styles.btnText }>

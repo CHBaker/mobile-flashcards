@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
     View, TouchableOpacity, Text, TextInput,
-    Platform, StyleSheet, KeyboardAvoidingView
+    Platform, StyleSheet, KeyboardAvoidingView,
+    Keyboard
 } from 'react-native';
 import { connect } from 'react-redux'
 import { addCard } from '../actions'
@@ -16,14 +17,16 @@ class AddCard extends Component {
     }
 
     handleSubmit() {
+        const id = this.props.navigation.state.params.id
         cardObj = {
-            id: this.props.navigation.state.params.id,
+            id: id,
             question: this.state.question,
             answer: this.state.answer
         }
 
+        Keyboard.dismiss();
         this.props.addCard(cardObj);
-
+        this.props.navigation.navigate('DeckDetail', { id: id })
         this.setState({ question: '', answer: '' })
     }
 

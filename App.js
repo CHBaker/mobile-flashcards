@@ -11,6 +11,7 @@ import NewDeck from './components/NewDeck';
 import Decks from './components/Decks';
 import DeckDetail from './components/DeckDetail';
 import AddCard from './components/AddCard';
+import Quiz from './components/Quiz';
 
 
 const store = createStore(
@@ -102,6 +103,12 @@ const MainNavigator = createStackNavigator({
   },
   AddCard: {
     screen: AddCard,
+    navigationOptions: {
+      header: null
+    }
+  },
+  Quiz: {
+    screen: Quiz,
     navigationOptions: {
       header: null
     }
