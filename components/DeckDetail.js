@@ -40,7 +40,7 @@ class DeckDetail extends Component {
                                     </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={() => navigation.navigate('Decks')}
+                                    onPress={() => navigation.navigate('AddCard', { id: deck.id })}
                                     style={[ styles.addBtn, styles.btn ]}
                                 >
                                     <Text style={ styles.btnText }>

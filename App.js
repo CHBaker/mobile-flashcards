@@ -10,6 +10,7 @@ import reducer from './reducers';
 import NewDeck from './components/NewDeck';
 import Decks from './components/Decks';
 import DeckDetail from './components/DeckDetail';
+import AddCard from './components/AddCard';
 
 
 const store = createStore(
@@ -97,6 +98,12 @@ const MainNavigator = createStackNavigator({
     screen: DeckDetail,
     navigationOptions: {
       header: null,
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      header: null
     }
   }
 })

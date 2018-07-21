@@ -1,8 +1,9 @@
-import * as Api from '../utils/api';
+import * as Api from '../utils/api'
 
-export const GET_DECKS = 'GET_DECKS';
-export const ADD_DECK = 'ADD_DECK';
-export const GET_DECK = 'GET_DECK';
+export const GET_DECKS = 'GET_DECKS'
+export const ADD_DECK = 'ADD_DECK'
+export const GET_DECK = 'GET_DECK'
+export const ADD_CARD = 'ADD_CARD'
 
 const newUID = () => {
     return Math.floor(Math.random()*8999999999999999+1000000000000000).toString();
@@ -32,4 +33,14 @@ export const getDeck = (id) => dispatch => {
         type: GET_DECK,
         id
     })
+}
+
+export const addCard = (cardObj) => dispatch => {
+    Api.addCard(cardObj).then(deck => {
+        dispatch({
+            type: ADD_CARD,
+            deck
+        })
+    }
+    ).catch(error => console.log(error))
 }

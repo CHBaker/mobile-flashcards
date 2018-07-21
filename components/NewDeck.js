@@ -27,7 +27,17 @@ class NewDeck extends Component {
         const { navigation } = this.props
 
         return (
-            <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior="padding"
+                keyboardVerticalOffset={
+                    Platform.select({
+                       ios: () => 100,
+                       android: () => 120
+                    })()
+                }
+                enabled
+            >
                 <BackBtn onPress={() => navigation.navigate('Decks')}/>
                 <View style={ styles.container }>
                     <Text style={ styles.header }>

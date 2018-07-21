@@ -1,4 +1,4 @@
-import { GET_DECKS, ADD_DECK, GET_DECK } from "../actions";
+import { GET_DECKS, ADD_DECK, GET_DECK, ADD_CARD } from "../actions";
 
 function appState(state = { decks: [], currentDeck: null }, action) {
     switch (action.type) {
@@ -21,6 +21,17 @@ function appState(state = { decks: [], currentDeck: null }, action) {
             return {
                 ...state,
                 currentDeck: { ...deck }
+            }
+        case ADD_CARD:
+            return {
+                ...state,
+                decks: [
+                    ...state.decks.filter(
+                        singleDeck => singleDeck.id !== action.deck.id
+                    ),
+                    action.deck
+                ],
+                currentDeck: { ...action.deck }
             }
         default:
             return state

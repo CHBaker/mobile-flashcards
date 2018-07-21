@@ -45,6 +45,25 @@ export function addDeck(deck) {
         .catch(error => console.log(error))
 }
 
+export function addCard(cardObj) {
+    return AsyncStorage.getItem(DECK_KEY)
+        .then(decks => {
+            const deckObj = JSON.parse(decks)
+            let updatedDeck
+            Object.keys(deckObj).forEach((deck) => {
+                if (deckObj[deck].id === cardObj.id) {
+                    const question = { question: cardObj.question, answer: cardObj.answer }
+                    deckObj[deck].questions = [ ...deckObj[deck].questions, question ]
+                    AsyncStorage.clear()
+                    AsyncStorage.setItem(DECK_KEY, JSON.stringify(deckObj))
+                    return updatedDeck = deckObj[deck]
+                }
+            })
+            return updatedDeck
+        })
+        .catch(error => console.log(error))
+}
+
 // React: {
 //     title: 'React',
 //     questions: [
