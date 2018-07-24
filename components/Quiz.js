@@ -4,6 +4,7 @@ import {
     Platform, StyleSheet,
 } from 'react-native';
 import { BackBtn } from './BackBtn'
+import { clearLocalNotifications, setLocalNotification } from '../utils/api'
 
 class Quiz extends Component {
 
@@ -39,6 +40,8 @@ class Quiz extends Component {
     showAnswer () {
         const show = !this.state.showAnswer
         this.setState({ showAnswer: show })
+        clearLocalNotifications()
+            .then(setLocalNotification)
     }
 
     resetQuiz () {

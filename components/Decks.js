@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Platform, StyleSheet } from 'react-native';
+import {
+    View, TouchableOpacity,
+    Text, Platform, StyleSheet,
+    List, FlatList
+} from 'react-native';
 import { connect } from 'react-redux';
 import { getDecks } from '../actions';
 import * as Api from '../utils/api';
@@ -26,16 +30,21 @@ class Decks extends Component {
                     </Text>
                 }
                 {
-                    decks.map((deck) => (
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('DeckDetail', { id: deck.id }) }
-                            style={ styles.deck }
-                            key={ deck.id }
-                        >
-                            <Text style={{ fontSize: 24 }}>{ deck.title }</Text>
-                            <Text style={{ fontSize: 20 }}>{ deck.questions.length }</Text>
-                        </TouchableOpacity>
-                    ))
+                    decks &&
+                    <FlatList
+                        data={ decks }
+                        renderItem={({ item: deck }) => (
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('DeckDetail', { id: deck.id }) }
+                                style={ styles.deck }
+                                key={ deck.id }
+                            >
+                                <Text style={{ fontSize: 24 }}>{ deck.title }</Text>
+                                <Text style={{ fontSize: 20 }}>{ deck.questions.length }</Text>
+                            </TouchableOpacity>
+                        )}
+                        keyExtractor={ deck => deck.id.toString() }
+                    />
                 }
             </View>
         )
@@ -45,7 +54,7 @@ class Decks extends Component {
 styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'stretch',
     },
     deck: {
         borderRadius: Platform.OS === 'ios' ? 16 : 2,
@@ -60,6 +69,7 @@ styles = StyleSheet.create({
         shadowRadius: 3,
         shadowOpacity: 0.8,
         shadowColor: 'rgba(0,0,0,0.75)',
+        flex: 1,
         alignSelf: 'stretch',
         shadowOffset: {
             width: 0,
