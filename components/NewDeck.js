@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux'
 import { BackBtn } from './BackBtn'
 import { SubmitBtn } from './SubmitBtn'
-import { addDeck } from '../actions'
+import { addDeck, setCurrentDeck } from '../actions'
 
 class NewDeck extends Component {
 
@@ -15,12 +15,21 @@ class NewDeck extends Component {
         title: ''
     }
 
+    newUID = () => {
+        return Math.floor(Math.random()*8999999999999999+1000000000000000).toString();
+    }
+
     handleSubmit () {
-        console.log(this.props)
         Keyboard.dismiss()
         this.setState({ title: '' })
-        this.props.addDeck(this.state.title)
-        this.props.navigation.navigate('Decks')
+        const deck = {
+            'title': this.state.title,
+            'id': this.newUID(),
+            questions: []
+        }
+        this.props.addDeck(deck)
+        this.props.setCurrentDeck(deck)
+        this.props.navigation.navigate('DeckDetail', { id: deck.id } )
     }
 
     render () {
@@ -89,7 +98,8 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addDeck: (title) => dispatch(addDeck(title))
+    addDeck: (title) => dispatch(addDeck(title)),
+    setCurrentDeck: (deck) => dispatch(setCurrentDeck(deck))
 });
 
 export default connect(null, mapDispatchToProps)(NewDeck)

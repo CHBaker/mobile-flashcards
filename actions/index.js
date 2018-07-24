@@ -4,10 +4,7 @@ export const GET_DECKS = 'GET_DECKS'
 export const ADD_DECK = 'ADD_DECK'
 export const GET_DECK = 'GET_DECK'
 export const ADD_CARD = 'ADD_CARD'
-
-const newUID = () => {
-    return Math.floor(Math.random()*8999999999999999+1000000000000000).toString();
-}
+export const SET_CURRENT_DECK = 'SET_CURRENT_DECK'
 
 export const getDecks = () => dispatch => {
     Api.getDecks().then(decks =>
@@ -18,8 +15,7 @@ export const getDecks = () => dispatch => {
     ).catch(error => console.log(error))
 }
 
-export const addDeck = (title) => dispatch => {
-    const deck = { 'title': title, 'id': newUID(), questions: [] }
+export const addDeck = (deck) => dispatch => {
     Api.addDeck(deck).then(deck => 
         dispatch({
             type: ADD_DECK,
@@ -34,6 +30,13 @@ export const getDeck = (id) => dispatch => {
         id
     })
 }
+
+export const setCurrentDeck = (deck) => dispatch => (
+    dispatch({
+        type: SET_CURRENT_DECK,
+        deck
+    })
+)
 
 export const addCard = (cardObj) => dispatch => {
     Api.addCard(cardObj).then(deck => {

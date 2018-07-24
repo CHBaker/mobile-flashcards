@@ -1,4 +1,4 @@
-import { GET_DECKS, ADD_DECK, GET_DECK, ADD_CARD } from "../actions";
+import { GET_DECKS, ADD_DECK, GET_DECK, ADD_CARD, SET_CURRENT_DECK } from "../actions";
 
 function appState(state = { decks: [], currentDeck: null }, action) {
     switch (action.type) {
@@ -18,6 +18,11 @@ function appState(state = { decks: [], currentDeck: null }, action) {
             }
         case GET_DECK:
             const deck = state.decks.find(deck => deck.id === action.id)
+            if (state.currentDeck.id === action.id) {
+                return {
+                    ...state
+                }
+            }
             return {
                 ...state,
                 currentDeck: { ...deck }
@@ -31,6 +36,11 @@ function appState(state = { decks: [], currentDeck: null }, action) {
                     ),
                     action.deck
                 ],
+                currentDeck: { ...action.deck }
+            }
+        case SET_CURRENT_DECK:
+            return {
+                ...state,
                 currentDeck: { ...action.deck }
             }
         default:

@@ -68,7 +68,7 @@ export function addCard(cardObj) {
 
 export function clearLocalNotifications() {
     return AsyncStorage.removeItem(NOTIFICATION_KEY)
-        .then(notifications.cancelAllScheduledNotificationsAsync)
+        .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
 function createNotification () {
